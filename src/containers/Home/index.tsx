@@ -4,7 +4,7 @@ import { AppContext } from 'containers/App/context';
 import React, { ChangeEvent, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Country, CountryService } from 'services/CountryService';
-import { HomeContainer } from './styled';
+import { HomeContainer, SearchBarContainer } from './styled';
 
 const Home = () => {
   const { allContries }: { allContries: Country[] } = useContext(AppContext);
@@ -34,12 +34,15 @@ const Home = () => {
 
   return (
     <>
-      <input
-        type='text'
-        onChange={onSearchChanged}
-        value={searchQuery}
-        placeholder='Search by name'
-      />
+      <SearchBarContainer>
+        <input
+          type='text'
+          onChange={onSearchChanged}
+          value={searchQuery}
+          placeholder='Search by name'
+        />
+      </SearchBarContainer>
+
       <HomeContainer>
         {allContries &&
           searchQuery.length === 0 &&
@@ -51,17 +54,15 @@ const Home = () => {
             />
           ))}
 
-        {searchQuery.length > 0 && searchValues.length > 0 ? (
-          searchValues.map((country) => (
-            <CountryCard
-              onSelect={() => onCountryClick(country)}
-              key={country.numericCode}
-              country={country}
-            />
-          ))
-        ) : (
-          <p>No results</p>
-        )}
+        {searchQuery.length > 0 && searchValues.length > 0
+          ? searchValues.map((country) => (
+              <CountryCard
+                onSelect={() => onCountryClick(country)}
+                key={country.numericCode}
+                country={country}
+              />
+            ))
+          : searchQuery.length > 0 && <p>No results</p>}
       </HomeContainer>
     </>
   );

@@ -27,7 +27,7 @@ export const CountryCardContainer = styled.div`
 
 export const CountryFlag = styled.div<{ bg: string }>`
   background-image: url(${(props) => props.bg});
-  width: 350px;
+  width: 349px;
   background-position: center;
   background-size: cover;
   height: 230px;
