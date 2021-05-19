@@ -1,0 +1,7 @@
+src/registerServiceWorker.js
+src/**/__tests__/**
+public/**
+node_modules/**
+build/**
+src/serviceWorker.ts
+src/react-phone-number-input.d.ts
