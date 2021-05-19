@@ -2,6 +2,7 @@ import { RoutesPaths } from 'containers/App/AppRouter';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Country } from 'services/CountryService';
+import { BackButton, CountryDetailsContainer } from './styled';
 
 const CountryDetails = () => {
   const history = useHistory();
@@ -18,15 +19,33 @@ const CountryDetails = () => {
     };
     init();
   }, [history]);
+
+  const onBack = () => {
+    history.goBack();
+  };
+
   return (
     <>
-      <img src={country?.flag} />
-      <section>
-        <h1>{country?.name}</h1>
-        <span>{country?.population.toLocaleString()} inhabitants</span>
-        <p>Capital: {country?.capital}</p>
-        <p>Region: {country?.region}</p>
-      </section>
+      <CountryDetailsContainer>
+        <img src={country?.flag} />
+        <section>
+          <h1>{country?.name}</h1>
+          <p>
+            <strong>Population:</strong> {country?.population.toLocaleString()}
+          </p>
+          <p>
+            <strong>Capital:</strong> {country?.capital}
+          </p>
+          <p>
+            <strong>Region:</strong> {country?.region}
+          </p>
+          <p>
+            <strong>Currency:</strong> {country?.currencies[0].name} (
+            {country?.currencies[0].symbol})
+          </p>
+        </section>
+      </CountryDetailsContainer>
+      <BackButton onClick={onBack}>{'<'}</BackButton>
     </>
   );
 };
